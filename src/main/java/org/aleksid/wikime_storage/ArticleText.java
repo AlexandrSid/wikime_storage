@@ -15,5 +15,4 @@ public class ArticleText {
     @Id
     public String articleId;
     public String text;
-
 }
