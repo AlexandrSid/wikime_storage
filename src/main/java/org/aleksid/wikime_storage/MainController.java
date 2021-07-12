@@ -4,6 +4,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("article")
 public class MainController {
@@ -21,19 +23,22 @@ public class MainController {
     }
 
     @PostMapping
-    public ArticleText create(@RequestBody ArticleText articleText) {
+    public ArticleText create(@RequestParam String articleId, @RequestParam String text) {
+        ArticleText articleText = new ArticleText(articleId, text);
         return textRepository.save(articleText);
     }
 
     @PutMapping("{id}")
-    public ArticleText update(@PathVariable("id") ArticleText fromDB, @RequestBody ArticleText articleText) {
+    public ArticleText update(@PathVariable("id") ArticleText fromDB, @RequestParam String articleId, @RequestParam String text) {
+        ArticleText articleText = new ArticleText(articleId, text);
         BeanUtils.copyProperties(articleText, fromDB, "id");
         return textRepository.save(fromDB);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable("id") ArticleText articleText) {
+    public String delete(@PathVariable("id") ArticleText articleText) {
         textRepository.delete(articleText);
+        return "200";
     }
 
 
