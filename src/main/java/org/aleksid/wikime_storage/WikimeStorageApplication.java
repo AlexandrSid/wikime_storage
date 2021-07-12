@@ -9,5 +9,6 @@ public class WikimeStorageApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WikimeStorageApplication.class, args);
 	}
-
 }
+
+
