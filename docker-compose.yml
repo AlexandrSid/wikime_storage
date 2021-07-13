@@ -1,27 +1,22 @@
+#doesn't work
 version: '3.7'
-
-volumes:
-  wikime-data:
 
 services:
   app:
     image: 'wikime_storage:latest'
     build:
       context: .
-    container_name: stor
-    ports:
-      - 8081:8081
+    expose:
+      - 8081
+    restart: on-failure
     depends_on:
       - mongo
-    environment:
-      - SPRING_DATASOURCE_URL=mongodb://mongo:27017/storage
-
 
   mongo:
     image: 'mongo:4.4.3'
     container_name: wikime-storage
     restart: on-failure
-    expose:
-      - 27017
+    ports:
+      - 27017:27017
     volumes:
       - ./datadir:/var/lib/mongo
