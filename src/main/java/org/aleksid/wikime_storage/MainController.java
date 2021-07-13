@@ -27,7 +27,8 @@ public class MainController {
     }
 
     @PutMapping("{id}")
-    public ArticleText update(@PathVariable("id") ArticleText fromDB, @RequestParam String articleId, @RequestParam String text) {
+    public ArticleText update(@PathVariable("id") String id, @RequestParam String articleId, @RequestParam String text) {
+        ArticleText fromDB = textRepository.findById(id).orElse(new ArticleText(id, ""));
         ArticleText articleText = new ArticleText(articleId, text);
         BeanUtils.copyProperties(articleText, fromDB, "id");
         return textRepository.save(fromDB);
