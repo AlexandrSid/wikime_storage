@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.aleksid</groupId>
 	<artifactId>wikime_storage</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>wikime_storage</name>
 	<description>Wikime service for storage articles text.</description>

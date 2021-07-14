@@ -4,8 +4,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("article")
 public class MainController {
@@ -13,8 +11,8 @@ public class MainController {
     private final TextRepository textRepository;
 
     @Autowired
-    public MainController(TextRepository repositroy) {
-        this.textRepository = repositroy;
+    public MainController(TextRepository repository) {
+        this.textRepository = repository;
     }
 
     @GetMapping("{id}")
@@ -29,7 +27,8 @@ public class MainController {
     }
 
     @PutMapping("{id}")
-    public ArticleText update(@PathVariable("id") ArticleText fromDB, @RequestParam String articleId, @RequestParam String text) {
+    public ArticleText update(@PathVariable("id") String id, @RequestParam String articleId, @RequestParam String text) {
+        ArticleText fromDB = textRepository.findById(id).orElse(new ArticleText(id, ""));
         ArticleText articleText = new ArticleText(articleId, text);
         BeanUtils.copyProperties(articleText, fromDB, "id");
         return textRepository.save(fromDB);
